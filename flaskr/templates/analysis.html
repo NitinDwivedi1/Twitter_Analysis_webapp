@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Twitter Analysis</title>
+</head>
+<body>
+    <form action="/", method="post">
+        <label>Enter keyword: </label>
+        <input type="text" name="keyword"><br>
+        <label>Enter count of tweets to fetch: </label>
+        <input type="number" name="count"><br>
+        <input type="submit">
+    </form>
+    <p>{{ keyword }}</p>
+    <p>Sentiment scores: {{ sentiment_score }}</p>
+    <img src={{ sentiment_score_image }}>
+    <img src={{ wordcloud_image }}>
+    <p>Top locations: {{ locs }}</p>
+    <img src={{ locations_image }}>
+    <p>Top mentioned users: {{ mentioned_users }}</p>
+    <img src={{ mentions_image }}>
+    <p>Top hashtags: {{ hashtags }}</p>
+    <img src={{ hashtags_image }}>
+    <p>Most occuring words: {{ words }}</p>
+    <img src={{ words_image }}>
+    <p>Most occuring bigram words: {{ bigrams }}</p>
+    <img src={{ bigrams_image }}>
+</body>
+</html>
