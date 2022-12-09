@@ -3,16 +3,6 @@ import React, { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-// export default function Example() {
-//   return (
-//     <div className="w-72">
-//         <h2>Login</h2><br></br>
-//       <Input label="Emailid" /><br></br>
-//       <Input label="Password" /><br></br>
-//     </div>
-//   );
-// }
-
 import axios from "axios";
 import { Link, Navigate } from "react-router-dom";
 
@@ -27,18 +17,24 @@ function Login(props) {
     if (loginForm.email != "" && loginForm.password != "") {
       axios({
         method: "POST",
-        url: "/token",
+        url: "/login",
         data: {
           email: loginForm.email,
           password: loginForm.password,
         },
       })
         .then((response) => {
-          localStorage.setItem("token", response.data.access_token);
-          setToken(response.data.access_token);
-          toast.success("Login Successfully");
+          console.log("loginr responses" + response.data.status);
+          console.log("loginr responses" + JSON.stringify(response));
+          if (response.data.status == 200) {
+            localStorage.setItem("token", response.data.access_token);
+            setToken(response.data.access_token);
+            toast.success("Logged in Successfully");
+            console.log(response.data.access_token);
+          } else if (response.data.status == 401) {
+            toast.error("Wrong email or password");
+          }
           // props.setToken(response.data.access_token);
-          console.log(response.data.access_token);
         })
         .catch((error) => {
           toast.error(error);
@@ -95,7 +91,7 @@ function Login(props) {
               value={loginForm.password}
             />{" "}
             <br></br>
-            <Button onClick={logMeIn}>Submit</Button> <br /> <br/>
+            <Button onClick={logMeIn}>Submit</Button> <br /> <br />
             <Link to="/register">Don't have an account ? Register</Link>
           </form>
         </div>

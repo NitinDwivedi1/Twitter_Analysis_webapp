@@ -69,11 +69,15 @@ export default function Register() {
       if (response.ok) {
         //   setdata(json);
         setToken(json.access_token);
-        toast.success("register successfully");
+        toast.success("Registered successfully");
         localStorage.setItem("token", json.access_token);
         msg = "Registered Successfully!";
       }
-    } else {
+      else if(response.status==400){
+        toast.error("Email already registered")
+      }
+    } 
+    else {
       toast.error("All fields are required");
     }
 
