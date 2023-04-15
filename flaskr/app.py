@@ -32,11 +32,11 @@ app = Flask(__name__)
 
 CORS(app)
 
-app.config['MYSQL_HOST'] = 'localhost'
+app.config['MYSQL_HOST'] = os.environ.get("MYSQL_HOST")
 # app.config['MYSQL_PORT'] = 3306
-app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = 'root@123'
-app.config['MYSQL_DB'] = 'twitter_analysis'
+app.config['MYSQL_USER'] = os.environ.get("MYSQL_USER")
+app.config['MYSQL_PASSWORD'] = os.environ.get("MYSQL_PASS")
+app.config['MYSQL_DB'] = os.environ.get("MYSQL_DB")
 # app.config['MYSQL_DATABASE_CHARSET'] = 'utf-8'
 app.config["JWT_SECRET_KEY"] = "secret key"
 app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(hours=1)
@@ -256,10 +256,10 @@ def plot_most_occuring_bigrams(words, keyword):
 
 def analyse(keyword, count):
 
-    consumer_key = 'mGsFf8tqL8sLLmkgvVvE3HPjN'
-    consumer_secret = 'q5QSXYDM8nxkJHv8TeSlXkWY2MfLDMEPWkqa8bSFNB6MNhEnmH'
-    access_token = '1133675761141862400-Ur7UvngZcvdg5h4WIumm0IS3z31Off'
-    access_token_secret = 'lEDEJK96jKvXmOjvY63ZnoMabelGTPxrMtID7xJl8ByB5'
+    consumer_key = os.environ.get("TWITTER_CONS_KEY")
+    consumer_secret = os.environ.get("TWITTER_CONS_SECRET")
+    access_token = os.environ.get("TWITTER_ACCESS_TOKEN")
+    access_token_secret = os.environ.get("TWITTER_ACCESS_TOKEN_SECRET")
 
     auth = tw.OAuthHandler(consumer_key, consumer_secret)
     auth.set_access_token(access_token, access_token_secret)
